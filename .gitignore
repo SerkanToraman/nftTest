@@ -1,1 +1,6 @@
-nftContract/build/*
+# Ignore Move build directory
+build/
+**/build/
+
+# More specific for your project structure
+nftCotract/build/
