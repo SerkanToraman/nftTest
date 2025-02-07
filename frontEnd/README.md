@@ -1,50 +1,35 @@
-# React + TypeScript + Vite
+# Sui dApp Starter Template
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This dApp was created using `@mysten/create-dapp` that sets up a basic React
+Client dApp using the following tools:
 
-Currently, two official plugins are available:
+- [React](https://react.dev/) as the UI framework
+- [TypeScript](https://www.typescriptlang.org/) for type checking
+- [Vite](https://vitejs.dev/) for build tooling
+- [Radix UI](https://www.radix-ui.com/) for pre-built UI components
+- [ESLint](https://eslint.org/)
+- [`@mysten/dapp-kit`](https://sdk.mystenlabs.com/dapp-kit) for connecting to
+  wallets and loading data
+- [pnpm](https://pnpm.io/) for package management
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Starting your dApp
 
-## Expanding the ESLint configuration
+To install dependencies you can run
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```bash
+pnpm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+To start your dApp in development mode run
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```bash
+pnpm dev
+```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+## Building
+
+To build your app for deployment you can run
+
+```bash
+pnpm build
 ```

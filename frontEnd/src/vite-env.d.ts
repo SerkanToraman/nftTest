@@ -1,11 +1,9 @@
 /// <reference types="vite/client" />
 
-declare module '*.svg' {
-  const content: string
-  export default content
+interface ImportMetaEnv {
+  readonly VITE_PACKAGE_ID: string
 }
 
-declare module '/vite.svg' {
-  const content: string
-  export default content
+interface ImportMeta {
+  readonly env: ImportMetaEnv
 }

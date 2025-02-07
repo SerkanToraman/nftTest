@@ -71,7 +71,7 @@ fun init(ctx: &mut TxContext) {
     transfer::public_share_object(treasury);
 }
 
-// ===== Public Mutative Functions =====
+// === Public Mutative Functions ===
 
 public fun mint_to_sender<T>(
     treasury: &mut Treasury<T>,
