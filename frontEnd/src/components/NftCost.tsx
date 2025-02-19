@@ -20,7 +20,7 @@ interface TreasuryData {
   };
 }
 
-export default function NftCost() {
+export default function NftCost({ treasuryCap }: { treasuryCap: string }) {
   const [isEditing, setIsEditing] = useState(false);
   const [newCost, setNewCost] = useState("");
   const client = useSuiClient();
@@ -46,10 +46,9 @@ export default function NftCost() {
   const currentCost =
     (treasuryData as TreasuryData)?.data?.content?.fields?.nft_mint_cost || "0";
 
-  const handleUpdateCost = () => {
-    const costInMist = Math.floor(Number(2) * 1000000000);
-    console.log("costInMist", costInMist);
-    const tx = setNftMintCost(treasuryData, costInMist);
+  const handleUpdateCost = async () => {
+    const costInMist = Number(2) * 1_000_000_000;
+    const tx = setNftMintCost(treasuryCap, costInMist);
 
     signAndExecuteTransaction(
       {
