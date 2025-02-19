@@ -1,13 +1,5 @@
 import { Transaction } from "@mysten/sui/transactions";
-import { packageId } from "../constants";
-
-export const initNFTContract = (): Transaction => {
-  const initTx = new Transaction();
-  initTx.moveCall({
-    target: `${packageId}::nfttest::init`,
-  });
-  return initTx;
-};
+import { packageId, treasuryId } from "../constants";
 
 export const createMintNFTTransaction = (): Transaction => {
   const mintTx = new Transaction();
@@ -21,4 +13,25 @@ export const createMintNFTTransaction = (): Transaction => {
   });
 
   return mintTx;
+};
+const treasuryCapId =
+  "0x7fca902adc59a21283f407b271c2b6604d75d45a73f7cc9b97cfa311ab8db4cc";
+export const setNftMintCost = (
+  treasuryData: any,
+  cost: number,
+): Transaction => {
+  const setCostTx = new Transaction();
+  console.log("treasuryData", treasuryData.data.content.fields.id.id);
+  console.log("cost in setNftMintCost ", cost);
+  setCostTx.moveCall({
+    target: `${packageId}::nfttest::set_nft_mint_cost`,
+    arguments: [
+      //TO-DO: Not safe to use ro pass the treasury id
+      treasuryCapId,
+      treasuryData.data.content,
+      setCostTx.pure.u64(cost),
+    ],
+  });
+  console.log("setCostTx", setCostTx);
+  return setCostTx;
 };

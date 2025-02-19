@@ -1,6 +1,7 @@
 import { useCurrentAccount, useSuiClientQuery } from "@mysten/dapp-kit";
-import { Flex, Heading, Text } from "@radix-ui/themes";
-import { packageId } from "../constants";
+import { Box, Typography, Stack } from "@mui/material";
+import { packageId, treasuryId } from "../constants";
+import NftCost from "./components/NftCost";
 
 export function OwnedObjects() {
   const account = useCurrentAccount();
@@ -8,39 +9,39 @@ export function OwnedObjects() {
     "getOwnedObjects",
     {
       owner: account?.address as string,
-      // filter: {
-      //   Package: packageId.toString(),
-      // },
+      filter: {
+        MatchAll: [{ ObjectId: import.meta.env.VITE_ADMIN_ACCOUNT }],
+        //TO-DO: struct type i al
+      },
     },
     {
       enabled: !!account,
     },
   );
+  console.log("data", data);
+
+  //loop through data and check if any of the objects are from the admin account
+  const isAdmin = data?.data.some(
+    (object) => object.data?.objectId === import.meta.env.VITE_ADMIN_ACCOUNT,
+  );
+
+  console.log("isAdmin", isAdmin);
 
   if (!account) {
     return;
   }
 
   if (error) {
-    return <Flex>Error: {error.message}</Flex>;
+    return <Box>Error: {error.message}</Box>;
   }
 
   if (isPending || !data) {
-    return <Flex>Loading...</Flex>;
+    return <Box>Loading...</Box>;
   }
 
   return (
-    <Flex direction="column" my="2">
-      {data.data.length === 0 ? (
-        <Text>No objects owned by the connected wallet</Text>
-      ) : (
-        <Heading size="4">Objects owned by the connected wallet</Heading>
-      )}
-      {data.data.map((object) => (
-        <Flex key={object.data?.objectId}>
-          <Text>Object ID: {object.data?.objectId}</Text>
-        </Flex>
-      ))}
-    </Flex>
+    <Stack direction="column" my={2}>
+      {isAdmin ? <NftCost /> : <Typography>You are not the admin</Typography>}
+    </Stack>
   );
 }

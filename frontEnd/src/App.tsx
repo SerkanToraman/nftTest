@@ -1,5 +1,5 @@
 import { ConnectButton } from "@mysten/dapp-kit";
-import { Box, Container, Flex, Heading } from "@radix-ui/themes";
+import { Box, Container, AppBar, Toolbar, Typography } from "@mui/material";
 import { WalletStatus } from "./WalletStatus";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Test from "./pages/test";
@@ -8,27 +8,33 @@ function App() {
   return (
     <Router>
       <>
-        <Flex
-          position="sticky"
-          px="4"
-          py="2"
-          justify="between"
-          style={{
-            borderBottom: "1px solid var(--gray-a2)",
-          }}
-        >
-          <Box>
-            <Heading>dApp Starter Template</Heading>
-            <Link to="/" style={{ marginRight: "1rem" }}>
-              Home
-            </Link>
-            <Link to="/test">Test</Link>
-          </Box>
+        <AppBar position="sticky">
+          <Toolbar sx={{ justifyContent: "space-between" }}>
+            <Box>
+              <Typography variant="h6">dApp Starter Template</Typography>
+              <Link
+                to="/"
+                style={{
+                  marginRight: "1rem",
+                  color: "white",
+                  textDecoration: "none",
+                }}
+              >
+                Home
+              </Link>
+              <Link
+                to="/test"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                Test
+              </Link>
+            </Box>
 
-          <Box>
-            <ConnectButton />
-          </Box>
-        </Flex>
+            <Box>
+              <ConnectButton />
+            </Box>
+          </Toolbar>
+        </AppBar>
 
         <Routes>
           <Route path="/test" element={<Test />} />
@@ -37,10 +43,13 @@ function App() {
             element={
               <Container>
                 <Container
-                  mt="5"
-                  pt="2"
-                  px="4"
-                  style={{ background: "var(--gray-a2)", minHeight: 500 }}
+                  sx={{
+                    mt: 5,
+                    pt: 2,
+                    px: 4,
+                    bgcolor: "grey.800",
+                    minHeight: 500,
+                  }}
                 >
                   <WalletStatus />
                 </Container>
