@@ -1,5 +1,5 @@
 import { useCurrentAccount } from "@mysten/dapp-kit";
-import { Container, Box, Typography, Stack } from "@mui/material";
+import { Container, Typography, Stack } from "@mui/material";
 import { OwnedObjects } from "./OwnedObjects";
 
 export function WalletStatus() {
