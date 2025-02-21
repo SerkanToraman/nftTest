@@ -1,30 +1,6 @@
 import { useCurrentAccount } from "@mysten/dapp-kit";
-import { Box, Typography, Stack } from "@mui/material";
-import NftCost from "./components/NftCost";
 import { useQuery } from "@tanstack/react-query";
-import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
-
-export function OwnedObjects() {
-  const { data, isPending, error } = useTreasuryCap();
-
-  if (error) {
-    return <Box>Error: {error.message}</Box>;
-  }
-
-  if (isPending || !data) {
-    return <Box>Loading...</Box>;
-  }
-
-  return (
-    <Stack direction="column" my={2}>
-      {data.isAdmin ? (
-        <NftCost treasuryCap={data.treasuryCap as string} />
-      ) : (
-        <Typography>You are not the admin</Typography>
-      )}
-    </Stack>
-  );
-}
+import { SuiClient, getFullnodeUrl } from "@mysten/sui/client";
 
 export function useTreasuryCap() {
   const account = useCurrentAccount();

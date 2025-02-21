@@ -1,8 +1,8 @@
 import { useCurrentAccount } from "@mysten/dapp-kit";
 import { Container, Typography, Stack } from "@mui/material";
-import { OwnedObjects } from "./OwnedObjects";
+import { AdminDetails } from "./AdminDetails";
 
-export function WalletStatus() {
+export function AdminPage() {
   const account = useCurrentAccount();
 
   return (
@@ -15,7 +15,7 @@ export function WalletStatus() {
         <Stack spacing={1}>
           <Typography>Wallet connected</Typography>
           <Typography>Address: {account.address}</Typography>
-          <OwnedObjects />
+          <AdminDetails />
         </Stack>
       ) : (
         <Typography>Wallet not connected</Typography>

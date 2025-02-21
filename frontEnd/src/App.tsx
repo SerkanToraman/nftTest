@@ -1,8 +1,9 @@
 import { ConnectButton } from "@mysten/dapp-kit";
 import { Box, Container, AppBar, Toolbar, Typography } from "@mui/material";
-import { WalletStatus } from "./WalletStatus";
+import { AdminPage } from "./components/admin/AdminPage";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Test from "./pages/test";
+import Test from "./pages/nftFeature";
+import NftFeature from "./pages/nftFeature";
 
 function App() {
   return (
@@ -20,13 +21,13 @@ function App() {
                   textDecoration: "none",
                 }}
               >
-                Home
+                Admin
               </Link>
               <Link
-                to="/test"
+                to="/nftFeature"
                 style={{ color: "white", textDecoration: "none" }}
               >
-                Test
+                NFT Feature
               </Link>
             </Box>
 
@@ -37,7 +38,7 @@ function App() {
         </AppBar>
 
         <Routes>
-          <Route path="/test" element={<Test />} />
+          <Route path="/nftFeature" element={<NftFeature />} />
           <Route
             path="/"
             element={
@@ -51,7 +52,7 @@ function App() {
                     minHeight: 500,
                   }}
                 >
-                  <WalletStatus />
+                  <AdminPage />
                 </Container>
               </Container>
             }

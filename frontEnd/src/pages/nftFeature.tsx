@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import { initNFTContract } from "../../utils/contract";
-import {
-  useCurrentAccount,
-  useSignAndExecuteTransaction,
-  useSuiClient,
-} from "@mysten/dapp-kit";
+import { useSuiClient } from "@mysten/dapp-kit";
+import MintNFT from "../components/nft/MintNFT";
+import { Container } from "@mui/material";
 
-function test() {
+function NftFeature() {
   const client = useSuiClient();
   // const { mutate: signAndExecuteTransaction } = useSignAndExecuteTransaction({
   //   execute: async ({ bytes, signature }) =>
@@ -39,7 +37,11 @@ function test() {
   //   }
   // }, []);
 
-  return <div>test</div>;
+  return (
+    <Container>
+      <MintNFT />
+    </Container>
+  );
 }
 
-export default test;
+export default NftFeature;

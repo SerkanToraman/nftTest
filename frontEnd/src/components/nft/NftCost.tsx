@@ -6,9 +6,9 @@ import {
   useSuiClientQuery,
 } from "@mysten/dapp-kit";
 
-import { setNftMintCost } from "../../utils/contract";
+import { setNftMintCost } from "../../../utils/contract";
 
-import { treasuryId } from "../../constants";
+import { treasuryId } from "../../../constants";
 
 interface TreasuryData {
   data?: {
@@ -36,7 +36,7 @@ export default function NftCost({ treasuryCap }: { treasuryCap: string }) {
       }),
   });
 
-  const { data: treasuryData } = useSuiClientQuery("getObject", {
+  const { data: treasuryData, refetch } = useSuiClientQuery("getObject", {
     id: treasuryId,
     options: {
       showContent: true,
@@ -47,7 +47,7 @@ export default function NftCost({ treasuryCap }: { treasuryCap: string }) {
     (treasuryData as TreasuryData)?.data?.content?.fields?.nft_mint_cost || "0";
 
   const handleUpdateCost = async () => {
-    const costInMist = Number(2) * 1_000_000_000;
+    const costInMist = Number(newCost) * 1_000_000_000;
     const tx = setNftMintCost(treasuryCap, costInMist);
 
     signAndExecuteTransaction(
@@ -56,8 +56,9 @@ export default function NftCost({ treasuryCap }: { treasuryCap: string }) {
         chain: "sui:testnet",
       },
       {
-        onSuccess: (result) => {
+        onSuccess: async (result) => {
           console.log("result", result.objectChanges);
+          await refetch();
           setIsEditing(false);
           setNewCost("");
         },

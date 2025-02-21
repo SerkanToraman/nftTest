@@ -1,19 +1,29 @@
-import { Transaction } from "@mysten/sui/transactions";
+import { Transaction, TransactionArgument } from "@mysten/sui/transactions";
 import { packageId, treasuryId } from "../constants";
 import { SuiClient } from "@mysten/sui/client";
 import { getFullnodeUrl } from "@mysten/sui/client";
 
-export const createMintNFTTransaction = (): Transaction => {
+export const createMintNFTTransaction = (
+  treasuryCapId: string,
+  coin: TransactionArgument,
+  name: string,
+  description: string,
+  url: string,
+): Transaction => {
+  console.log("coin", coin);
   const mintTx = new Transaction();
   mintTx.moveCall({
     target: `${packageId}::nfttest::mint_to_sender`,
+    typeArguments: ["0x2::sui::SUI"],
     arguments: [
-      mintTx.pure.string("The first NFT"),
-      mintTx.pure.string("Description of my first NFT"),
-      mintTx.pure.string("https://picsum.photos/200/300"),
+      mintTx.object(treasuryCapId),
+      mintTx.object(coin),
+      mintTx.pure.string(name),
+      mintTx.pure.string(description),
+      mintTx.pure.string(url),
     ],
   });
-
+  console.log("mintTx", mintTx);
   return mintTx;
 };
 
